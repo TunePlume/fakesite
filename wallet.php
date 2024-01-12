@@ -1,21 +1,20 @@
-<?php include 'log.php';
-
+<?php 
 require_once('connect.php');
 
-$sql="SELECT balance FROM wallet WHERE id = :id_user";
-$id_user = $_SESSION['id'];
+include('log.php');
 
-$stmt = $bdd->prepare($sql);
-$stmt->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+//Recuperer l'ID de l'utilisateur connecte
+$user_id = $_SESSION['id'];
+
+//Recuperer la balance de l'utilisateur a partir de la base de donnee
+$sql = "SELECT balance FROM wallet WHERE user_id = :user_id";
+$stmt = $co->prepare($sql);
+$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
-
-// Recuperation de resultat 
-$resultat = $stmt->fetch(PD0::FETCH_ASSOC);
-
-//Fermeture de la base
-$bdd = null;
-
+$balance = $stmt->fetchColumn();
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -34,7 +33,7 @@ $bdd = null;
         <h2 id="wallet-heading">My Wallet</h2>
         <div class="balance">
             <p>Current Balance: </p>
-            <p id="balance">Loading...</p>
+            <p id="balance"><?php echo $balance; ?></p>
         </div>
         <div class="transaction-history">
             <h3>Transaction History</h3>

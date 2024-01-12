@@ -25,7 +25,7 @@
             <label class="logo">HHS.</label>
 
             <ul>
-                <li><a href="log.html">Wallet</a></li>
+                <li><a href="wallet.php">Wallet</a></li>
                 <li><a href="#">Contacts</a></li>
                 
                 <li class=><a href="log.html">Sign-in / Sign-up</a></li>
